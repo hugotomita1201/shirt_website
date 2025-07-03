@@ -3,7 +3,7 @@
 import { addToCart, createCart } from '@/lib/shopify';
 import { getCookie, setCookie } from 'cookies-next';
 import { useState } from 'react';
-import { Button } from 'react95';
+import { Button } from '@/components/ui/Windows95Components';
 
 export function AddToCartButton({
     variantId,

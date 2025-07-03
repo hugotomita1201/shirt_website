@@ -3,7 +3,7 @@
 import type { ShopifyProduct } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from 'react95';
+import { Button } from '@/components/ui/Windows95Components';
 
 interface ProductCardProps {
     product: ShopifyProduct;

@@ -1,7 +1,7 @@
 'use client';
 
 import styled, { keyframes } from 'styled-components';
-import { Window, WindowHeader, WindowContent, Button } from 'react95';
+import { Window, WindowHeader, WindowContent, Button } from '@/components/ui/Windows95Components';
 import Image from 'next/image';
 
 const marquee = keyframes`

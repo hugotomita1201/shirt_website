@@ -2,7 +2,7 @@
 
 import type { ShopifyProduct } from '@/lib/types';
 import { ProductCard } from './ProductCard';
-import { Window, WindowContent, WindowHeader, Button } from 'react95';
+import { Window, WindowContent, WindowHeader, Button } from '@/components/ui/Windows95Components';
 import { Cart } from '@/components/layout/Cart';
 
 interface ProductGridProps {
