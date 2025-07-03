@@ -20,7 +20,7 @@ const config: CodegenConfig = {
                 useTypeImports: true,
                 enumsAsTypes: true,
                 skipTypename: true,
-                defaultScalarType: 'unknown',
+                defaultScalarType: 'string',
             },
         },
     },

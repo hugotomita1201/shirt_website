@@ -130,6 +130,16 @@ export const cartLinesAddMutation = /* GraphQL */ `
   }
 `;
 
+export const cartLinesRemoveMutation = /* GraphQL */ `
+  mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+    cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+      cart {
+        id
+      }
+    }
+  }
+`;
+
 export const getCartQuery = /* GraphQL */ `
   query getCart($cartId: ID!) {
     cart(id: $cartId) {

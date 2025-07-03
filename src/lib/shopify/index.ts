@@ -1,6 +1,7 @@
 import {
     cartCreateMutation,
     cartLinesAddMutation,
+    cartLinesRemoveMutation,
     getCartQuery,
     getProductByHandleQuery,
     getProductsQuery,
@@ -15,6 +16,7 @@ import type {
 import type {
     CartCreateMutation,
     CartLinesAddMutation,
+    CartLinesRemoveMutation,
     GetCartQuery,
     GetProductByHandleQuery,
     GetProductsQuery,
@@ -152,6 +154,17 @@ export async function addToCart(
         variables: {
             cartId,
             lines,
+        },
+        cache: 'no-store',
+    });
+}
+
+export async function removeFromCart(cartId: string, lineIds: string[]) {
+    await shopifyFetch<CartLinesRemoveMutation>({
+        query: cartLinesRemoveMutation,
+        variables: {
+            cartId,
+            lineIds,
         },
         cache: 'no-store',
     });

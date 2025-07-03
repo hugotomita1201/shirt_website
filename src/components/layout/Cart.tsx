@@ -1,7 +1,7 @@
 'use client';
 
 
-import { getCart } from '@/lib/shopify';
+import { getCart, removeFromCart } from '@/lib/shopify';
 import { Dialog, Transition } from '@headlessui/react';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
@@ -13,20 +13,40 @@ import { Button, Window, WindowHeader, WindowContent, GroupBox, Separator } from
 export function Cart() {
     const [isOpen, setIsOpen] = useState(false);
     const [cart, setCart] = useState<ShopifyCart | null>(null);
+    const [isRemoving, setIsRemoving] = useState(false);
+
+    async function fetchCart() {
+        const cartId = getCookie('cartId')?.toString();
+        if (cartId) {
+            const cart = await getCart(cartId);
+            setCart(cart);
+        }
+    }
 
     useEffect(() => {
-        async function fetchCart() {
-            const cartId = getCookie('cartId')?.toString();
-            if (cartId) {
-                const cart = await getCart(cartId);
-                setCart(cart);
-            }
-        }
-
         if (isOpen) {
             fetchCart();
         }
     }, [isOpen]);
+
+    async function handleRemove(lineIds: string[]) {
+        const cartId = getCookie('cartId')?.toString();
+        if (!cartId) return;
+
+        const confirmed = window.confirm('Are you sure you want to delete this item from your cart?');
+        if (!confirmed) return;
+
+        setIsRemoving(true);
+        try {
+            await removeFromCart(cartId, lineIds);
+            await fetchCart();
+        } catch (e) {
+            console.error(e);
+            alert('Failed to delete item from cart.');
+        } finally {
+            setIsRemoving(false);
+        }
+    }
 
     const openCart = () => setIsOpen(true);
     const closeCart = () => setIsOpen(false);
@@ -183,6 +203,17 @@ export function Cart() {
                                                                     <div style={{ fontSize: '0.8rem', color: '#666' }}>
                                                                         Qty: {item.quantity}
                                                                     </div>
+                                                                    <Button
+                                                                        onClick={() => handleRemove([item.id])}
+                                                                        disabled={isRemoving}
+                                                                        style={{
+                                                                            marginTop: '0.5rem',
+                                                                            padding: '0.25rem 0.5rem',
+                                                                            fontSize: '0.8rem'
+                                                                        }}
+                                                                    >
+                                                                        {isRemoving ? 'Deleting...' : '🗑️ Delete'}
+                                                                    </Button>
                                                                 </div>
                                                             </div>
                                                             {index < cart.lines.length - 1 && (
