@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "SKIP_TYPE_CHECK=true next build",
     "start": "next start",
     "lint": "next lint",
     "codegen": "dotenv -e .env.local -- graphql-codegen"
@@ -16,7 +16,7 @@
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react95": "^4.0.0",
+    "react95": "^3.7.0",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {

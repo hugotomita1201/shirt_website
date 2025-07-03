@@ -8,10 +8,38 @@ import {
     Window,
     WindowContent,
     WindowHeader,
-    GroupBox,
-    Separator,
     Button,
 } from 'react95';
+
+// Custom Windows 95 styled components
+const GroupBox = ({ label, children, style }: { label: string; children: React.ReactNode; style?: React.CSSProperties }) => (
+    <fieldset style={{
+        border: '2px inset #f0f0f0',
+        margin: '0.5rem 0',
+        padding: '0.5rem',
+        backgroundColor: '#f0f0f0',
+        ...style
+    }}>
+        <legend style={{
+            backgroundColor: '#f0f0f0',
+            padding: '0 0.5rem',
+            fontSize: '0.9rem',
+            fontWeight: 'bold'
+        }}>{label}</legend>
+        {children}
+    </fieldset>
+);
+
+const Separator = ({ style }: { style?: React.CSSProperties }) => (
+    <hr style={{
+        border: 'none',
+        borderTop: '1px solid #c0c0c0',
+        borderBottom: '1px solid #ffffff',
+        height: '2px',
+        margin: '0.5rem 0',
+        ...style
+    }} />
+);
 
 export function ProductDetails({ product }: { product: ShopifyProduct }) {
     const firstVariantId = product.variants.find(

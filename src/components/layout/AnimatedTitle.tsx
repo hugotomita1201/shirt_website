@@ -80,7 +80,7 @@ export function AnimatedTitle() {
               unoptimized
               style={{ width: 'clamp(40px, 8vw, 60px)', height: 'clamp(40px, 8vw, 60px)' }}
             />
-            <h1 style={{ margin: 0 }}>BulletHoleVintage's Store</h1>
+            <h1 style={{ margin: 0 }}>BulletHoleVintage&apos;s Store</h1>
             <Image
               src="/eye001.gif"
               alt="Eye animation"

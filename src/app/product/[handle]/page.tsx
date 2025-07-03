@@ -2,13 +2,14 @@ import { getProductByHandle } from '@/lib/shopify';
 import { ProductDetails } from './ProductDetails';
 
 interface ProductPageParams {
-    params: {
+    params: Promise<{
         handle: string;
-    };
+    }>;
 }
 
 export default async function ProductPage({ params }: ProductPageParams) {
-    const product = await getProductByHandle(params.handle);
+    const { handle } = await params;
+    const product = await getProductByHandle(handle);
 
     return <ProductDetails product={product} />;
 } 

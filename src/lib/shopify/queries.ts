@@ -12,7 +12,7 @@ export async function shopifyFetch<T>({
   cache = 'force-cache',
 }: {
   query: string;
-  variables?: Record<string, any>;
+  variables?: Record<string, unknown>;
   cache?: RequestCache;
 }): Promise<T> {
   const endpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2023-10/graphql.json`;

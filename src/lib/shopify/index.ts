@@ -33,8 +33,11 @@ function reshapeCart(cart: GetCartQuery['cart']): ShopifyCart {
     }
     return {
         id: cart.id,
-        checkoutUrl: cart.checkoutUrl,
-        totalAmount: formatPrice(cart.cost.totalAmount),
+        checkoutUrl: cart.checkoutUrl as string,
+        totalAmount: formatPrice({
+            amount: cart.cost.totalAmount.amount as string,
+            currencyCode: cart.cost.totalAmount.currencyCode as string
+        }),
         lines: cart.lines.edges.map(
             ({ node }): ShopifyCartItem => ({
                 id: node.id,
@@ -48,7 +51,7 @@ function reshapeCart(cart: GetCartQuery['cart']): ShopifyCart {
                     },
                     price: {
                         amount: node.merchandise.price.amount as string,
-                        currencyCode: node.merchandise.price.currencyCode,
+                        currencyCode: node.merchandise.price.currencyCode as string,
                     },
                     image: {
                         url: node.merchandise.image?.url as string,
@@ -72,7 +75,10 @@ function reshapeProduct(
         handle: product.handle,
         title: product.title,
         description: product.descriptionHtml,
-        price: formatPrice(product.priceRange.minVariantPrice),
+        price: formatPrice({
+            amount: product.priceRange.minVariantPrice.amount as string,
+            currencyCode: product.priceRange.minVariantPrice.currencyCode as string
+        }),
         imageUrl: product.images.edges[0].node.url as string,
         altText: product.images.edges[0].node.altText || null,
         variants: product.variants.edges.map(
@@ -82,7 +88,7 @@ function reshapeProduct(
                 availableForSale: node.availableForSale,
                 price: {
                     amount: node.price.amount as string,
-                    currencyCode: node.price.currencyCode,
+                    currencyCode: node.price.currencyCode as string,
                 },
             }),
         ),
